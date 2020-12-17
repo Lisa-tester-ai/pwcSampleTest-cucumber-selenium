@@ -1,5 +1,7 @@
 package pwcprod.automation.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -48,7 +50,7 @@ public class PwcHomePage extends AbstractPage {
     }
 
     public void selectFromNavBarMenu(String phrase){
-        Select menu = new Select(driver.findElement(BY_NAV_BAR));
+        Select menu = new Select(getDriver().findElement(BY_NAV_BAR));
         menu.selectByVisibleText(phrase);
     }
 
@@ -67,7 +69,7 @@ public class PwcHomePage extends AbstractPage {
     }
 
     public boolean checkItemNumOfCarousel(int expectedSize) { 
-        List<WebElement> allItems = select.findElements(BY_CAROUSEL_CARD_CONTENT);
+        List<WebElement> allItems = getDriver().findElements(BY_CAROUSEL_CARD_CONTENT);
         if (expectedSize != allItems.size()) {
            System.out.println("fail, wrong number of items found");
            return false;

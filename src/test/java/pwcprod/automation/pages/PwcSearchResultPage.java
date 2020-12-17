@@ -6,6 +6,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
@@ -30,8 +31,9 @@ public class PwcSearchResultPage extends AbstractPage {
         }
     }
 
-    boolean isInResults(String expectedTitle, int nbOfResultsToSearch) {
-        wait.forPresenceOfElements(5, By.cssSelector(RESULTS_TITLE_SELECTOR), "Result title");
+    public boolean isInResults(String expectedTitle, int nbOfResultsToSearch) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(RESULTS_TITLE_SELECTOR)));
         return IntStream.range(0, Math.min(this.results.size(), nbOfResultsToSearch))
                 .anyMatch(index -> this.results.get(index).getText().contains(expectedTitle));
     }

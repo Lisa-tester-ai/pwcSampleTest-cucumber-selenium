@@ -1,11 +1,9 @@
 package pwcprod.automation.stepdefs;
 
 import pwcprod.automation.SharedContext;
-import pwcprod.automation.pages.AbstractPage;
-import pwcprod.automation.pages.DuckDuckGoPage;
-import pwcprod.automation.pages.GooglePage;
 import pwcprod.automation.pages.PwcContactUsPage;
 import pwcprod.automation.pages.PwcHomePage;
+import pwcprod.automation.pages.PwcSearchResultPage;
 import cucumber.api.Scenario;
 import cucumber.api.java8.En;
 import org.openqa.selenium.WebDriver;
@@ -14,9 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PwcSample implements En {
     private WebDriver driver;
-    private AbstractPage homePage;
-    private AbstractPage searchResultPage;
-    private AbstractPage contactUsPage;
+    private PwcHomePage homePage;
+    private PwcSearchResultPage searchResultPage;
+    private PwcContactUsPage contactUsPage;
 
     private SharedContext sharedContext;
 
@@ -68,11 +66,11 @@ public class PwcSample implements En {
         Then("^all contacts details are displayed$", () -> {
             assertThat(contactUsPage.checkListOfContact()).isTrue();
         });
-        Then("^carousel will load \"([^\"]*)\" featured articles$", (int num) -> {
-            homePage.checkItemNumOfCarousel(num);
+        Then("^carousel will load (\\d+) featured articles$", (String num) -> {
+            homePage.checkItemNumOfCarousel(Integer.parseInt(num));
         });
-        Then("^\"([^\"]*)\" is displayed in the first \"([^\"]*)\" results$", (String phrase, int num) -> {
-            assertThat(searchResultPage.isInResults(phrase, num)).isTrue();
+        Then("^\"([^\"]*)\" is displayed in the first (\\d+) results$", (String phrase, String num) -> {
+            assertThat(searchResultPage.isInResults(phrase, Integer.parseInt(num))).isTrue();
         });
         After(new String[]{"@web"}, (Scenario scenario) -> {
             this.sharedContext.tearDown();

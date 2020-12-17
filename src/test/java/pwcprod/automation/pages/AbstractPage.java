@@ -7,7 +7,7 @@ public abstract class AbstractPage {
 
     private WebDriver driver;
 
-    public AbstractPage(WebDriver driver) {
+    protected AbstractPage(WebDriver driver) {
         this.driver = driver;
     }
 
